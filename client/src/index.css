@@ -1,0 +1,231 @@
+/* ==========================================================================
+   AeroDrive — Premium Design System & Stylesheet
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Color Variables */
+  --bg-obsidian: #08090c;
+  --bg-card: rgba(18, 22, 33, 0.6);
+  --bg-card-hover: rgba(26, 31, 46, 0.85);
+  
+  --primary-cyan: #00e5ff;
+  --primary-cyan-glow: rgba(0, 229, 255, 0.35);
+  --secondary-violet: #7c3aed;
+  --secondary-violet-glow: rgba(124, 58, 237, 0.35);
+  
+  --text-primary: #f4f4f5;
+  --text-muted: #94a3b8;
+  --text-subtle: #475569;
+  
+  --success-emerald: #10b981;
+  --error-crimson: #ef4444;
+  --accent-gold: #f59e0b;
+  
+  --border-glass: rgba(255, 255, 255, 0.07);
+  --border-glass-active: rgba(0, 229, 255, 0.3);
+  
+  /* Fonts */
+  --font-geom: 'Space Grotesk', -apple-system, sans-serif;
+  
+  /* Transitions */
+  --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base Resets & Layout */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-obsidian);
+  color: var(--text-primary);
+  font-family: var(--font-geom);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-obsidian);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--text-subtle);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-cyan);
+}
+
+/* Typographic Headings & Gradients */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-geom);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary-cyan) 0%, var(--secondary-violet) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glassmorphism Styles */
+.glass-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-glass);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: var(--transition-smooth);
+}
+
+.glass-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  border-color: var(--border-glass-active);
+  box-shadow: 0 12px 30px rgba(0, 229, 255, 0.08);
+  background: var(--bg-card-hover);
+}
+
+/* Premium Button Elements */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-cyan) 0%, var(--secondary-violet) 100%);
+  color: #000;
+  font-family: var(--font-geom);
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  padding: 0.75rem 1.75rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: var(--transition-fast);
+  box-shadow: 0 4px 15px var(--primary-cyan-glow);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px var(--primary-cyan-glow), 0 0 10px rgba(124, 58, 237, 0.4);
+  color: #000;
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  font-family: var(--font-geom);
+  font-weight: 500;
+  border: 1px solid var(--border-glass);
+  border-radius: 10px;
+  padding: 0.75rem 1.75rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: var(--transition-fast);
+}
+
+.btn-secondary:hover {
+  border-color: var(--primary-cyan);
+  background: rgba(0, 229, 255, 0.05);
+  transform: translateY(-2px);
+}
+
+/* Showroom Catalog Layouts */
+.showroom-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .showroom-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Global Navigation & Layout wrappers */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  width: 100%;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge-available {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--success-emerald);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.badge-sold {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--error-crimson);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* Car Card Image Hover Zoom */
+.car-card-img:hover {
+  transform: scale(1.05);
+}
+
+/* ============================================================
+   Keyframe Animations
+   ============================================================ */
+
+/* Loading spinner (used in submit buttons) */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Fade in (used in toast notifications) */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Slide up (used in floating compare bar) */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Pulse shimmer (used in skeleton loaders) */
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 0.8; }
+}
+
