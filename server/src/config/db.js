@@ -8,14 +8,9 @@ const { Pool } = pg;
 
 // Create a new connection pool to PostgreSQL using our .env variables
 const pool = new Pool({
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  database: process.env.DB_DATABASE,
+  connectionString: `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`,
   ssl: {
-    rejectUnauthorized: false,
-    mode: 'require'
+    rejectUnauthorized: false
   }
 });
 
