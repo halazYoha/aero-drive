@@ -7,8 +7,9 @@ dotenv.config();
 const { Pool } = pg;
 
 // Create a new connection pool to PostgreSQL using our .env variables
+// Use pooler mode for better IPv4 support
 const pool = new Pool({
-  connectionString: `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`,
+  connectionString: `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST.replace('db.', 'pooler.')}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`,
   ssl: {
     rejectUnauthorized: false
   }
