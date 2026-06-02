@@ -6,6 +6,7 @@ const router = express.Router();
 // 1. GET /api/cars - Get all cars with dynamic search filters
 router.get('/', async (req, res) => {
   try {
+    console.log('🔍 Fetching cars with filters:', req.query);
     const { make, body_style, fuel_type, min_price, max_price } = req.query;
 
     let queryText = `
@@ -56,10 +57,13 @@ router.get('/', async (req, res) => {
     // Order catalog from premium highest price down to lowest
     queryText += ' ORDER BY cars.price DESC';
 
+    console.log('📝 Executing query:', queryText);
     const result = await pool.query(queryText, queryParams);
+    console.log('✅ Query successful, returned', result.rows.length, 'cars');
     res.status(200).json(result.rows);
   } catch (error) {
     console.error('❌ Error fetching cars:', error);
+    console.error('❌ Error details:', error.message, error.stack);
     res.status(500).json({ error: 'Server error while retrieving vehicle catalog.' });
   }
 });
