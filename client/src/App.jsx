@@ -219,8 +219,8 @@ function App() {
       setBookingMessage({ type: 'error', text: 'Please sign in to schedule a test drive.' });
       return;
     }
-    if (!bookingForm.name || !bookingForm.date) {
-      setBookingMessage({ type: 'error', text: 'Please complete all required fields.' });
+    if (!bookingForm.date) {
+      setBookingMessage({ type: 'error', text: 'Please select a date for your test drive.' });
       return;
     }
 
