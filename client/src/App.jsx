@@ -219,7 +219,7 @@ function App() {
       setBookingMessage({ type: 'error', text: 'Please sign in to schedule a test drive.' });
       return;
     }
-    if (!bookingForm.name || !bookingForm.email || !bookingForm.date) {
+    if (!bookingForm.name || !bookingForm.date) {
       setBookingMessage({ type: 'error', text: 'Please complete all required fields.' });
       return;
     }
@@ -229,8 +229,8 @@ function App() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name: bookingForm.name,
-          email: bookingForm.email,
+          name: authUser.full_name,
+          email: authUser.email,
           car_id: selectedCar.id,
           booking_date: bookingForm.date,
           time_slot: bookingForm.timeSlot
@@ -1576,28 +1576,32 @@ function App() {
                         type="text"
                         placeholder="Your Name"
                         required
-                        value={bookingForm.name}
+                        value={authUser ? authUser.full_name : bookingForm.name}
                         onChange={(e) => setBookingForm({ ...bookingForm, name: e.target.value })}
+                        disabled={!!authUser}
                         style={{
-                          background: 'rgba(0,0,0,0.3)',
+                          background: authUser ? 'rgba(124,58,237,0.1)' : 'rgba(0,0,0,0.3)',
                           border: '1px solid var(--border-glass)',
                           borderRadius: '6px',
                           padding: '0.5rem',
-                          color: '#fff'
+                          color: '#fff',
+                          opacity: authUser ? 0.7 : 1
                         }}
                       />
                       <input
                         type="email"
                         placeholder="Email Address"
                         required
-                        value={bookingForm.email}
+                        value={authUser ? authUser.email : bookingForm.email}
                         onChange={(e) => setBookingForm({ ...bookingForm, email: e.target.value })}
+                        disabled={!!authUser}
                         style={{
-                          background: 'rgba(0,0,0,0.3)',
+                          background: authUser ? 'rgba(124,58,237,0.1)' : 'rgba(0,0,0,0.3)',
                           border: '1px solid var(--border-glass)',
                           borderRadius: '6px',
                           padding: '0.5rem',
-                          color: '#fff'
+                          color: '#fff',
+                          opacity: authUser ? 0.7 : 1
                         }}
                       />
                     </div>
