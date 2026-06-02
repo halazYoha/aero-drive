@@ -90,6 +90,19 @@ function App() {
   const [selectedPaint, setSelectedPaint] = useState('Matte Obsidian Black');
   const [selectedWheels, setSelectedWheels] = useState('20" Aero V-Spoke Alloys');
 
+  // 📄 PAGINATION STATE
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+
+  // Calculate pagination
+  const totalPages = Math.ceil(cars.length / itemsPerPage);
+  const paginatedCars = cars.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filters]);
+
   // Helper: Computes configured price based on base MSRP + selected options
   const getConfiguredPrice = (basePrice) => {
     let cost = parseFloat(basePrice);
@@ -658,7 +671,7 @@ function App() {
               </div>
             ) : cars.length > 0 ? (
               <div className="showroom-grid">
-                {cars.map((car) => (
+                {paginatedCars.map((car) => (
                   <div key={car.id} className="glass-card" style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: '0' }}>
 
                     {/* Visual Card Header Image */}
@@ -760,6 +773,63 @@ function App() {
                   </div>
                 ))}
               </div>
+
+              {/* 📄 PAGINATION CONTROLS */}
+              {totalPages > 1 && (
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  marginTop: '2rem',
+                  flexWrap: 'wrap'
+                }}>
+                  <button
+                    onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                    disabled={currentPage === 1}
+                    className="btn-secondary"
+                    style={{
+                      padding: '0.5rem 1rem',
+                      opacity: currentPage === 1 ? 0.5 : 1,
+                      cursor: currentPage === 1 ? 'not-allowed' : 'pointer'
+                    }}
+                  >
+                    ← Previous
+                  </button>
+
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                    <button
+                      key={page}
+                      onClick={() => setCurrentPage(page)}
+                      className={currentPage === page ? 'btn-primary' : 'btn-secondary'}
+                      style={{
+                        padding: '0.5rem 0.75rem',
+                        minWidth: '40px',
+                        background: currentPage === page
+                          ? 'linear-gradient(135deg, var(--primary-cyan) 0%, var(--secondary-violet) 100%)'
+                          : 'transparent',
+                        color: currentPage === page ? '#000' : '#fff',
+                        border: currentPage === page ? 'none' : '1px solid var(--border-glass)'
+                      }}
+                    >
+                      {page}
+                    </button>
+                  ))}
+
+                  <button
+                    onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                    disabled={currentPage === totalPages}
+                    className="btn-secondary"
+                    style={{
+                      padding: '0.5rem 1rem',
+                      opacity: currentPage === totalPages ? 0.5 : 1,
+                      cursor: currentPage === totalPages ? 'not-allowed' : 'pointer'
+                    }}
+                  >
+                    Next →
+                  </button>
+                </div>
+              )}
             ) : (
               <div className="glass-card" style={{ textAlign: 'center', padding: '3rem 1rem' }}>
                 <span style={{ fontSize: '1.5rem', display: 'block', marginBottom: '0.5rem' }}>🔍 No Vehicles Match Your Query</span>
