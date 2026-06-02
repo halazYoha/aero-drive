@@ -377,14 +377,17 @@ function App() {
         position: 'sticky',
         top: 0,
         zIndex: 50,
-        padding: '1rem 2rem'
+        padding: '1rem 1rem'
       }}>
         <div style={{
           maxWidth: '1300px',
           margin: '0 auto',
           display: 'flex',
           justifyContent: 'space-between',
-          alignItems: 'center'
+          alignItems: 'center',
+          gap: '0.5rem',
+          overflowX: 'auto',
+          whiteSpace: 'nowrap'
         }}>
           {/* Logo */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }} onClick={() => { setActiveTab('showroom'); setSelectedCar(null); }}>
