@@ -25,7 +25,7 @@ import {
 } from 'lucide-react';
 import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 function App() {
   const [cars, setCars] = useState([]);
@@ -1700,7 +1700,7 @@ function App() {
               {authMode === 'register' && (
                 <div>
                   <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.4rem' }}>Full Name</label>
-                  <input type="text" placeholder="e.g. Alex Mercer" required
+                  <input type="text" placeholder="Enter your full name" required
                     value={authForm.full_name}
                     onChange={e => setAuthForm({ ...authForm, full_name: e.target.value })}
                     style={{
@@ -1713,7 +1713,7 @@ function App() {
               )}
               <div>
                 <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.4rem' }}>Email Address</label>
-                <input type="email" placeholder="admin@aerodrive.com" required
+                <input type="email" placeholder="Enter your email address" required
                   value={authForm.email}
                   onChange={e => setAuthForm({ ...authForm, email: e.target.value })}
                   style={{
@@ -1726,7 +1726,7 @@ function App() {
               <div>
                 <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.4rem' }}>Password</label>
                 <div style={{ position: 'relative' }}>
-                  <input type={showPassword ? 'text' : 'password'} placeholder="••••••••" required
+                  <input type={showPassword ? 'text' : 'password'} placeholder="Enter your password" required
                     value={authForm.password}
                     onChange={e => setAuthForm({ ...authForm, password: e.target.value })}
                     style={{
